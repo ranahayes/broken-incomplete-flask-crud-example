@@ -12,7 +12,6 @@ app.config['MYSQL_USER'] = 'A'
 app.config['MYSQL_PASSWORD'] = 'B'
 app.config['MYSQL_DB'] = 'student'
 app.config['MYSQL_HOST'] = '34.125.223.69'
-app.config['MYSQL_PORT'] = 33060  # Replace 3306 with the actual port number
 mysql.init_app(app)
 
 @app.route("/add") #Add Student
