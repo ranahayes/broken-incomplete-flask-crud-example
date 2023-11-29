@@ -174,18 +174,22 @@
       var id = $('#id').val();
       var name = $('#updateName').val();
       var email = $('#updateEmail').val();
-      console.log(id);
-      console.log(name);
-      console.log(email);
+    
       $.ajax({
         url: '/update',
         method: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify({ id: id, name: name, email: email }),
         success: function(response) {
-          if (response.Result == 'Success') {
+          var data = JSON.parse(response);
+          if (data.Result === 'Success') {
             alert('Student updated successfully!');
-            window.location.reload();
+            // Find the student in the list and update the details
+            $('#studentList li').filter(function() {
+              return $(this).attr('data-id') == id;
+            }).text(id + ' - ' + name + ' - ' + email);
+          } else {
+            alert('Error updating student: ' + data.Message);
           }
         }
       });
