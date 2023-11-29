@@ -43,10 +43,11 @@ def add():
 
 @app.route("/update", methods=['PUT'])  # Update Student
 def update():
+    id = int(request.json.get('id'))
+    name = request.json.get('name')
+    email = request.json.get('email')
     try:
-        id = int(request.form.get('id'))
-        name = request.json.get('name')
-        email = request.json.get('email')
+
 
         query = '''UPDATE students SET studentName = '{}', email = '{}' WHERE studentID = {} ;'''.format(name, email, id)
         print("Received Update Request. ID:", id, "Name:", name, "Email:", email)
@@ -58,9 +59,8 @@ def update():
 
 @app.route("/delete", methods=['DELETE'])  # Delete Student
 def delete():
+    name = request.json.get('name')
     try:
-        name = request.args.get('deleteName')
-
         query = '''DELETE FROM students WHERE studentName='{}';'''.format(name)
         success = execute_query(query)
         print(success)
@@ -96,6 +96,10 @@ def read():
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port='8080')
 
 
 if __name__ == "__main__":
