@@ -115,6 +115,7 @@
           });
     
           // Delete student
+          // Delete student
           $('#deleteStudentButton').on('click', function() {
             var name = $('#deleteName').val();
             console.log(name);
@@ -126,14 +127,17 @@
               success: function(response) {
                 if (response.Result === 'Success') {
                   alert('Student deleted successfully!');
-                  window.location.reload();
+                  // Remove the student from the list
+                  $('#studentList li').filter(function() {
+                    return $(this).text().indexOf(name) != -1;
+                  }).remove();
                 } else {
                   alert('Error deleting student: ' + response.Message);
                 }
               }
             });
           });
-        });
+
       </script>
       </div>
 
