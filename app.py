@@ -31,15 +31,15 @@ def add():
     name = request.json.get('name')
     email = request.json.get('email')
     try:
-        query = '''INSERT INTO students(studentName, email) VALUES('{}', '{}');'''.format(name, email)
-        success = execute_query(query)
-
-        if success:
-            return '{"Result": "Success"}'
-        else:
-            return '{"Result": "Error"}'
+        query = '''INSERT INTO students(studentName, email) VALUES(%s, %s);'''
+        cur = mysql.connection.cursor()
+        cur.execute(query, (name, email))
+        mysql.connection.commit()
+        student_id = cur.lastrowid  # Get the ID of the last inserted row
+        return json.dumps({"Result": "Success", "ID": student_id})
     except Exception as e:
-        return '{"Result": "Error", "Message": "' + str(e) + '"}'
+        return json.dumps({"Result": "Error", "Message": str(e)})
+
 
 @app.route("/update", methods=['PUT'])  # Update Student
 def update():
