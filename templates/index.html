@@ -156,11 +156,14 @@
         success: function(response) {
           if (response.Result === 'Success') {
             alert('Student added successfully!');
-            window.location.reload();
+            // Append the new student to the list
+            var li = $('<li>' + name + ' - ' + email + '</li>'); // ID unknown at this point
+            $('#studentList').append(li);
           }
         }
       });
     });
+
 
     // Update student
     $('#updateStudentButton').on('click', function() {
