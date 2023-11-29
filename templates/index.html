@@ -154,15 +154,19 @@
         contentType: 'application/json',
         data: JSON.stringify({ name: name, email: email }),
         success: function(response) {
-          if (response.Result === 'Success') {
+          var data = JSON.parse(response);
+          if (data.Result === 'Success') {
             alert('Student added successfully!');
-            // Append the new student to the list
-            var li = $('<li>' + name + ' - ' + email + '</li>'); // ID unknown at this point
+            // Append the new student to the list with the returned ID
+            var li = $('<li>' + data.ID + ' - ' + name + ' - ' + email + '</li>');
             $('#studentList').append(li);
+          } else {
+            alert('Error adding student: ' + data.Message);
           }
         }
       });
     });
+
 
 
     // Update student
