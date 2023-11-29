@@ -171,55 +171,44 @@
 
     // Update student
     $('#updateStudentButton').on('click', function() {
-        var id = $('#id').val();
-        var name = $('#updateName').val();
-        var email = $('#updateEmail').val();
-      
-        $.ajax({
-          url: '/update',
-          method: 'PUT',
-          contentType: 'application/json',
-          data: JSON.stringify({ id: id, name: name, email: email }),
-          success: function(response) {
-            var data = JSON.parse(response);
-            if (data.Result === 'Success') {
-              alert('Student updated successfully!');
-              // Find the student in the list and update the details
-              $('#studentList li').filter(function() {
-                return $(this).attr('data-id') == id;
-              }).text(id + ' - ' + name + ' - ' + email);
-            } else {
-              alert('Error updating student: ' + data.Message);
-            }
+      var id = $('#id').val();
+      var name = $('#updateName').val();
+      var email = $('#updateEmail').val();
+      console.log(id);
+      console.log(name);
+      console.log(email);
+      $.ajax({
+        url: '/update',
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({ id: id, name: name, email: email }),
+        success: function(response) {
+          if (response.Result == 'Success') {
+            alert('Student updated successfully!');
+            window.location.reload();
           }
-        });
+        }
       });
-
+    });
 
     // Delete student
     $('#deleteStudentButton').on('click', function() {
-        var id = $('#deleteID').val();  // Assuming you have an input field for the student ID
-      
-        $.ajax({
-          url: '/delete',
-          method: 'DELETE',
-          contentType: 'application/json',
-          data: JSON.stringify({ id: id }),
-          success: function(response) {
-            var data = JSON.parse(response);
-            if (data.Result === 'Success') {
-              alert('Student deleted successfully!');
-              // Remove the student from the list
-              $('#studentList li').filter(function() {
-                return $(this).attr('data-id') == id;
-              }).remove();
-            } else {
-              alert('Error deleting student: ' + data.Message);
-            }
+      var name = $('#deleteName').val();
+      console.log(name);
+      $.ajax({
+        url: '/delete',
+        method: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify({ name: name }),
+        success: function(response) {
+          if (response.Result === 'Success') {
+            alert('Student deleted successfully!');
+            window.location.reload();
           }
-        });
+        }
       });
-
+    });
+  });
 </script>
       </div>
 
