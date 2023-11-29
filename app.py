@@ -11,7 +11,7 @@ CORS(app)
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'secret'
 app.config['MYSQL_DB'] = 'student'
-app.config['MYSQL_HOST'] = '34.125.223.69'
+app.config['MYSQL_HOST'] = '34.125.170.207'
 mysql.init_app(app)
 
 def execute_query(query):
